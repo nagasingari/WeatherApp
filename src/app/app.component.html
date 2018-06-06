@@ -1,24 +1,38 @@
 <div class="container">
-  <p>Reverse Data</p>
+  <h2>Reverse Data</h2>
   <div class="row">
-    <div class="col">
-      <input type="text" maxlength="20" [(ngModel)]="dataToReverse" />
+    <div class="col-6">
+      <input type="text" placeholder="Enter data to reverse" maxlength="20" [(ngModel)]="dataToReverse" />
     </div>
-    <div class="col">
-      <button type="button" class="btn btn-success" [disabled]="!dataToReverse" (click)="onClickReverese(dataToReverse)">Reverse</button>
+    <div class="col-3">
+      <button type="button" class="btn btn-secondary" [disabled]="!dataToReverse" (click)="dataToReverse=''">Reset</button>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn btn-success" [disabled]="!dataToReverse" (click)="onClickReverese()">Reverse</button>
     </div>
   </div>
-  <p>Reversed Data: {{reversedData}}</p>
+  <strong>Reversed Data: {{reversedData}}</strong>
 </div>
+<br>
 <div class="container">
-  <p>Weather Details</p>
+  <h2>Weather Details</h2>
   <div class="row">
-    <div class="col">
-      <input type="number" maxlength="20" [(ngModel)]="zipCode" />
+    <div class="col-6">
+      <input type="number" placeholder="Enter zip code" [disabled]="isGetWeatherDataInprogress" minlength="5" maxlength="5" [(ngModel)]="zipCode"
+      />
     </div>
-    <div class="col">
-      <button type="button" class="btn btn-success" [disabled]="!zipCode" (click)="onClickGetWheatherDetails(zipCode)">Submit</button>
+    <div class="col-3">
+      <button type="button" class="btn btn-secondary" [disabled]="!zipCode" (click)="zipCode=''">Reset</button>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn btn-success" [disabled]="!zipCode || isGetWeatherDataInprogress" (click)="onClickGetWheatherDetails()">Submit</button>
     </div>
   </div>
-  <p>Weather Details: {{weatherData}}</p>
+  <strong>Weather Details:</strong>
+  <br>
+  <p class="mr-3">{{weatherData}}</p>
+  <div *ngIf="isGetWeatherDataInprogress">
+    <button class="btn btn-outline-primary btn-lg mb-3">
+      <i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Fetching weather details</button>
+  </div>
 </div>

@@ -14,6 +14,6 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
 
   getWeatherDetails(zipCode: number): Observable<any> {
-    return this.http.get(this.weatherUrl + '30338,us&APPID=' + this.appId);
+    return this.http.get(this.weatherUrl + zipCode + ',us&APPID=' + this.appId);
   }
 }

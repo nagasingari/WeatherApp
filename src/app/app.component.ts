@@ -9,26 +9,33 @@ import { WeatherService } from './weather.service';
   providers: [ReverseService, WeatherService]
 })
 export class AppComponent {
-  reversedData;
-  weatherData;
+  dataToReverse: string = '';
+  reversedData: string = '';
+  zipCode;
+  weatherData: Object = null;
+  isGetWeatherDataInprogress: boolean = false;
 
   constructor(
     private rs: ReverseService,
-    private wd: WeatherService
+    private ws: WeatherService
   ) {
 
   }
 
-  onClickReverese(data) {
-    this.reversedData = this.rs.reverse(data);
+  onClickReverese() {
+    this.reversedData = this.rs.reverse(this.dataToReverse);
   }
 
-  onClickGetWheatherDetails(zipCode) {
-    this.wd.getWeatherDetails(zipCode)
+  onClickGetWheatherDetails() {
+    this.weatherData = null;
+    this.isGetWeatherDataInprogress = true;
+    this.ws.getWeatherDetails(this.zipCode)
       .subscribe((data) => {
         this.weatherData = JSON.stringify(data);
+        this.isGetWeatherDataInprogress = false;
       }, (err) => {
-        this.weatherData = 'Failed to retrived weather data';
+        this.weatherData = 'Failed to retrive weather data';
+        this.isGetWeatherDataInprogress = false;
       });
   }
 }

@@ -8,17 +8,20 @@ export class ReverseService {
   constructor() { }
 
   reverse(data): any {
-    let revData;
-    let isNegetiveNumber = false;
-    let d = parseInt(data);
-    if (isNaN(d)) {
+    /*if (typeof data !== 'string' && typeof data !== 'number') {
+      throw 'Invalid Input';
+    }*/
+    if (isNaN(parseInt(data))) {
+      if (typeof data !== 'string') {
+        throw 'Invalid Input';
+      }
       return this.reverseString(data);
     } else {
-      return this.reverseNumber(d);
+      return this.reverseNumber(parseInt(data));
     }
   }
 
-  reverseString(str) {
+  private reverseString(str: string) {
     let revStr = '';
     for (var i = str.length - 1; i >= 0; i--) {
       revStr += str[i];
@@ -26,7 +29,7 @@ export class ReverseService {
     return revStr;
   }
 
-  reverseNumber(num) {
+  private reverseNumber(num: number) {
     let reversed = 0;
     let isNegetiveNumber = false;
     if (num < 0) {
